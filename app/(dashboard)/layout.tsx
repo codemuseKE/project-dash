@@ -1,17 +1,31 @@
-import Glass from "@/components/Glass";
-// import clsx from "clsx";
-// import "@/styles/global.css";
-import '../../styles/globals.css'
+"use client";
+import Link from "next/link";
+import { Settings, User, Grid, Calendar } from "react-feather";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
-export default function DashboardRoot({children}) {
-    return (
-        <html lang="en">
-            <head/>
-            <body className='p-6 h-screenw-screen rainbow-mesh'>
-                <Glass className="flex items-center justify-center w-full height-full">
-                {children}
-                </Glass>
-            </body>
-        </html>
-    )
-}
+const icons = { Settings, User, Grid, Calendar };
+
+const SidebarLink = ({ link }) => {
+  const pathname = usePathname();
+  let isActive = false;
+
+  if (pathname === link.link) {
+    isActive = true;
+  }
+
+  const Icon = icons[link.icon];
+  return (
+    <Link href={link.link} className="flex items-center justify-center w-full">
+      <Icon
+        size={40}
+        className={clsx(
+          "stroke-gray-400 hover:stroke-violet-600 transition duration-200 ease-in-out",
+          isActive && "stroke-violet-600"
+        )}
+      />
+    </Link>
+  );
+};
+
+export default SidebarLink;

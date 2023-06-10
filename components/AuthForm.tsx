@@ -7,6 +7,7 @@ import Card from "./Card";
 import Button from "./Button";
 import Input from "./Input";
 
+
 const registerContent = {
   linkUrl: "/signin",
   linkText: "Already have an account?",
@@ -14,7 +15,6 @@ const registerContent = {
   subheader: "Just a few things to get started",
   buttonText: "Register",
 };
-
 const signinContent = {
   linkUrl: "/register",
   linkText: "Don't have an account?",
@@ -31,7 +31,7 @@ export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
 
   const router = useRouter();
   const handleSubmit = useCallback(
-    async (e) => {
+    async (e: { preventDefault: () => void; }) => {
       e.preventDefault();
 
       try {
@@ -126,6 +126,7 @@ export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
             <div>
               <span>
                 <Link
+                prefetch
                   href={content.linkUrl}
                   className="font-bold text-blue-600"
                 >

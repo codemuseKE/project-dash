@@ -1,12 +1,16 @@
-const fetcher = async ({url, method, body, json=true
+const fetcher = async ({
+    url, 
+    method, 
+    body, 
+    json=true
 }) => {
-const res = await fetch(url, {
-    method,
-    body: body && JSON.stringify(body),
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-    }
+    const res = await fetch(url, {
+        method,
+        body: body && JSON.stringify(body),
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        }
 })
 if(!res.ok){
     //handle errors
@@ -19,9 +23,16 @@ if (json) {
 }
 
 export const register = (user) => {
-    return fetcher({url: '/api/register', method: 'post', body: user})
+    return fetcher({
+        url: '/api/register',
+        method: 'post', 
+        body: user
+    })
 }
 
 export const signin = (user) => {
-    return fetcher({url: '/api/signin', method: 'post', body: user})
+    return fetcher({
+        url: '/api/signin', 
+        method: 'post', 
+        body: user})
 }

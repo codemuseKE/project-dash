@@ -1,6 +1,6 @@
 import AuthForm from "../../../components/AuthForm"
 
-const signin = () => {
+const Register = () => {
   return (
     <div>
       <AuthForm mode="register" />
@@ -8,4 +8,4 @@ const signin = () => {
   )
 }
 
-export default signin
+export default Register

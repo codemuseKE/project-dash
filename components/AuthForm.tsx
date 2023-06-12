@@ -1,12 +1,13 @@
 "use client";
+
 import { register, signin } from "@/lib/api";
 import { useCallback, useState } from "react";
+
+import Button from "./Button";
+import Card from "./Card";
+import Input from "./Input";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Card from "./Card";
-import Button from "./Button";
-import Input from "./Input";
-
 
 const registerContent = {
   linkUrl: "/signin",
@@ -23,16 +24,20 @@ const signinContent = {
   buttonText: "Sign In",
 };
 
-const initial = { email: "", password: "", firstName: "", lastName: "" };
+const initial = { 
+  email: "", 
+  password: "", 
+  firstName: "", 
+  lastName: "" 
+};
 
 export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
   const [formState, setFormState] = useState({ ...initial });
-  const [error, setError] = useState("");
 
-  const router = useRouter();
+  const router = useRouter(); //router hook
   const handleSubmit = useCallback(
     async (e: { preventDefault: () => void; }) => {
-      e.preventDefault();
+      e.preventDefault(); //prevent page refresh
 
       try {
         if (mode === "register") {
@@ -41,7 +46,7 @@ export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
           await signin(formState);
         }
 
-        router.replace("/home");
+        router.replace("/home"); //redirect to home page after successful login
       } catch (e) {
         setError(`Could not ${mode}`);
       } finally {
@@ -65,6 +70,7 @@ export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
           <h2 className="mb-2 text-3xl">{content.header}</h2>
           <p className="tex-lg text-black/25">{content.subheader}</p>
         </div>
+        
         <form onSubmit={handleSubmit} className="w-full py-10">
           {mode === "register" && (
             <div className="flex justify-between mb-8">
@@ -78,7 +84,7 @@ export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
                   value={formState.firstName}
                   className="w-full px-6 py-2 text-lg border-2 border-solid border-gray rounded-3xl"
                   onChange={(e) =>
-                    setFormState((s) => ({ ...s, firstName: e.target.value }))
+                    setFormState((prevState) => ({ ...prevState, firstName: e.target.value }))
                   }
                 />
               </div>
@@ -90,7 +96,7 @@ export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
                   value={formState.lastName}
                   className="w-full px-6 py-2 text-lg border-2 border-solid border-gray rounded-3xl"
                   onChange={(e) =>
-                    setFormState((s) => ({ ...s, lastName: e.target.value }))
+                    setFormState((prevState) => ({ ...prevState, lastName: e.target.value }))
                   }
                 />
               </div>
@@ -105,7 +111,7 @@ export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
               value={formState.email}
               className="w-full px-6 py-2 text-lg border-2 border-solid border-gray rounded-3xl"
               onChange={(e) =>
-                setFormState((s) => ({ ...s, email: e.target.value }))
+                setFormState((prevState) => ({ ...prevState, email: e.target.value }))
               }
             />
           </div>
@@ -118,7 +124,7 @@ export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
               placeholder="Password"
               className="w-full px-6 py-2 text-lg border-2 border-solid border-gray rounded-3xl"
               onChange={(e) =>
-                setFormState((s) => ({ ...s, password: e.target.value }))
+                setFormState((prevState) => ({ ...prevState, password: e.target.value }))
               }
             />
           </div>
@@ -144,4 +150,8 @@ export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
       </div>
     </Card>
   );
+}
+
+function setError( arg0: string ) {
+  throw new Error( "Function not implemented." );
 }
